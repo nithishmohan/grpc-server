@@ -14,6 +14,8 @@ RDS_USER: str = config("RDS_USER", cast=str, default='user')
 RDS_DB: str = config("RDS_DB", cast=str, default='sample_db')
 RDS_DBTYPE: str = config("RDS_DBTYPE", cast=str, default='mysql')
 
+GRPC_HOST: str = config("GRPC_HOST", cast=str, default="localhost")
+GRPC_PORT: int = config("GRPC_PORT", cast=int, default=50051)
 
 ALLOWED_HOSTS: List[str] = config(
     "ALLOWED_HOSTS", cast=CommaSeparatedStrings, default=""

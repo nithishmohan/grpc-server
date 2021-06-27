@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from proto import meter_usage_pb2 as proto_dot_meter__usage__pb2
+import app.generated.meter_usage_pb2 as proto_dot_meter__usage__pb2
 
 
 class MeterUsageServiceStub(object):
