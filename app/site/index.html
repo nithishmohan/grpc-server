@@ -44,7 +44,7 @@
         function get_data(page) {
             $('h3').html('loading..')
             $.ajax({
-                url: "http://0.0.0.0:8080/meterusages",
+                url: "http://0.0.0.0/meterusages",
                 data: jQuery.param({page: page, page_size: recPerPage}),
                 async: true,
                 dataType: 'json',

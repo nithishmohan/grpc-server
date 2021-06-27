@@ -13,8 +13,8 @@ app = FastAPI()
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
-templates = Jinja2Templates(directory="site")
-app.mount("/static", StaticFiles(directory="site"), name="static")
+templates = Jinja2Templates(directory="app/site")
+app.mount("/static", StaticFiles(directory="app/site"), name="static")
 
 logger = logging.getLogger("uvicorn.error")
 

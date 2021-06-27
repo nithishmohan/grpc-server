@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  mysql_app:
+      container_name: mysql_app
+      restart: always
+      image: mysql:5.7
+      environment:
+        MYSQL_DATABASE: meter_db
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: password
+      ports:
+        - "3306:3306"
+      healthcheck:
+        test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+        timeout: 20s
+        retries: 10
+
+  grpc_server:
+    build: .
+    container_name: grpc_server
+    command: bash -c "alembic upgrade head && python -m app.grpc_server --host 0.0.0.0 --port 50051 --workers 4"
+    volumes:
+      - .:/app
+    ports:
+      - "50051:50051"
+    depends_on:
+      - mysql_app
+
+  meter_usage_service:
+    build: .
+    container_name: meter_usage_service
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --workers 4
+    volumes:
+      - .:/app
+    ports:
+      - "80:8080"
+    depends_on:
+      - grpc_server

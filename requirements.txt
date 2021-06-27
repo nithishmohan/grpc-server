@@ -1,5 +1,9 @@
 fastapi==0.63.0
 uvicorn==0.11.1
-alembic=1.6.3
+alembic==1.6.3
 starlette==0.13.6
-mysqlclient=2.0.3
+mysqlclient==2.0.3
+aiofiles==0.7.0
+grpcio==1.38.1
+grpcio-tools==1.38.1
+jinja2==2.11.3
