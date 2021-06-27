@@ -9,7 +9,7 @@ from app.meter_usage.config import GRPC_PORT
 class GRPCServer:
     @staticmethod
     def run():
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+        server = grpc.server(futures.ThreadPoolExecutor(max_workers=6))
         meter_usage_pb2_grpc.add_MeterUsageServiceServicer_to_server(
             MeterUsageService(), server
         )
