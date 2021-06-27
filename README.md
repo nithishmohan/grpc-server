@@ -1,7 +1,7 @@
 # Python gRPC-based microservice
-##Service written in Fast API Framework and gRPC server and using docker for deployment
+#Service written in Fast API Framework and gRPC server and using docker for deployment
 
-##Prerequisite
+#Prerequisite
     Docker 
 
 How To start the API service using docker-compose
