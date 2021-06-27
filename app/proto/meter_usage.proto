@@ -4,21 +4,25 @@ package project;
 
 import "google/protobuf/timestamp.proto";
 
+// The Meter service definition.
 message MeterUsage {
     int32 id = 1;
     float value = 2;
     google.protobuf.Timestamp time = 3;
 }
 
+//The Response message containing the meter usage data
 message MeterUsageResponse {
     repeated MeterUsage data = 1;
 }
 
+//The Request message with pagination implemented
 message MeterUsageRequest {
     int32 page = 1;
     int32 page_size = 2;
 }
 
+//Reply message format
 service MeterUsageService {
     rpc GetMeterUsage(MeterUsageRequest) returns (MeterUsageResponse) {}
 }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="static/jquery.twbsPagination.min.js"></script>
+    <link rel="stylesheet" href="static/index.css">
+    <title>Meter Usage</title>
+</head>
+<body>
+<div class="container" style="padding:10px 20px;">
+    <h2>Meter Usage</h1>
+        <h3>Page: 1</h3>
+        <table id="meter_usage" class="table table-bordered table table-hover" cellspacing="0" width="100%">
+            <colgroup>
+                <col width="20%">
+                <col width="35%">
+                <col width="40%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>value</th>
+                <th>time</th>
+            </tr>
+            </thead>
+            <tbody id="meter_body">
+            </tbody>
+        </table>
+        <div id="pager">
+            <ul id="pagination" class="pagination-sm"></ul>
+        </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $pagination = $('#pagination'),
+            totalRecords = 0,
+            records = [],
+            recPerPage = 10
+
+        function get_data(page) {
+            $('h3').html('loading..')
+            $.ajax({
+                url: "http://0.0.0.0:8080/meterusages",
+                data: jQuery.param({page: page, page_size: recPerPage}),
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                    $('h3').html('Page: ' + page)
+                    records = data.data;
+                    totalRecords = records.length;
+                    generate_table();
+                }
+            });
+        }
+        function generate_table() {
+            var tr;
+            $('#meter_body').html('');
+            for (var i = 0; i < records.length; i++) {
+                let d = new Date(records[i].time)
+                let datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+                    d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+                tr = $('<tr/>');
+                tr.append("<td>" + records[i].id + "</td>");
+                tr.append("<td>" + records[i].value + "</td>");
+                tr.append("<td>" + datestring + "</td>");
+                $('#meter_body').append(tr);
+            }
+        }
+        function apply_pagination() {
+            $pagination.twbsPagination({
+                totalPages: 100000,
+                visiblePages: 0,
+                currentPage: 1,
+                onPageClick: function (event, page) {
+                    get_data(page)
+                }
+            });
+        }
+        apply_pagination();
+    });
+</script>
+ 

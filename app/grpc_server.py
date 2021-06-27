@@ -17,6 +17,8 @@ class GRPCServer:
         server.start()
         server.wait_for_termination()
 
-
+"""
+Start the GRPC Server
+"""
 if __name__ == "__main__":
     GRPCServer.run()
