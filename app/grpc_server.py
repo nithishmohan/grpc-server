@@ -7,8 +7,14 @@ from app.meter_usage.config import GRPC_PORT
 
 
 class GRPCServer:
+    """
+    GRPC Server class
+    """
     @staticmethod
     def run():
+        """
+        Staring the GRPC Server
+        """
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=6))
         meter_usage_pb2_grpc.add_MeterUsageServiceServicer_to_server(
             MeterUsageService(), server
@@ -17,8 +23,9 @@ class GRPCServer:
         server.start()
         server.wait_for_termination()
 
-"""
-Start the GRPC Server
-"""
+
 if __name__ == "__main__":
+    """
+    Start the GRPC Server
+    """
     GRPCServer.run()

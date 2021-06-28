@@ -1,7 +1,7 @@
 from typing import List
 
 from starlette.config import Config
-from starlette.datastructures import CommaSeparatedStrings, Secret
+from starlette.datastructures import CommaSeparatedStrings
 
 VERSION = "1.0.0"
 

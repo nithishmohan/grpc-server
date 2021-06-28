@@ -6,7 +6,14 @@ from app.meter_usage.database import get_session as db_session
 
 
 class MeterUsageService(meter_usage_pb2_grpc.MeterUsageServiceServicer):
+
     def GetMeterUsage(self, request, context):
+        """
+        :param request:
+        :param context:
+        :return:
+        """
+        ##getting the meter usages from the database
         meter_usages = db_session().query(MeterUsage).limit(request.page_size).offset(
             (request.page - 1) * request.page_size)
 
@@ -21,5 +28,5 @@ class MeterUsageService(meter_usage_pb2_grpc.MeterUsageServiceServicer):
                     time=timestamp,
                 )
             )
-
+        ##serializing the meter usages to MeterUsageResponse format
         return meter_usage_pb2.MeterUsageResponse(data=_meter_usages)

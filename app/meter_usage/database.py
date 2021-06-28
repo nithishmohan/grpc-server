@@ -1,4 +1,3 @@
-import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base  # type: ignore
@@ -15,6 +14,7 @@ session = None
 
 
 def get_session():
+    ##maintaining the database session globally
     global session
     if not session:
         session = SessionLocal()
